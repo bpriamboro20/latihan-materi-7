@@ -10,7 +10,7 @@
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
         </v-app-bar>
-        <NewsView />
+        <router-view></router-view>
 
         <v-navigation-drawer v-model="drawer" app class="drawer-adjustment" color="primary" dark absolute temporary>
           <v-list nav dense>
@@ -30,26 +30,23 @@
 </template>
 
 <script>
-import NewsView from "@/views/NewsView.vue";
+import { mapState } from "vuex";
+
 export default {
-  data: () => ({
-    drawer: false,
-    group: null,
-    authors: [], // Menambahkan array untuk menyimpan nama-nama author
-  }),
-  components: {
-    NewsView,
+  data() {
+    return {
+      drawer: false,
+      group: null,
+      authors: [],
+    };
   },
   computed: {
-    listNews() {
-      return this.$store.state.news.list;
-    },
+    ...mapState("news", ["list"]),
   },
   watch: {
-    listNews: {
+    list: {
       immediate: true,
       handler(newsList) {
-        // Mengambil semua nama author dari setiap berita
         this.authors = newsList.map((news) => news.author).filter((author) => !!author);
       },
     },
@@ -57,4 +54,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.drawer-adjustment {
+  z-index: 101; /* Adjust z-index if needed */
+}
+</style>

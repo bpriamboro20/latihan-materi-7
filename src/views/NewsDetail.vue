@@ -8,9 +8,7 @@
         <h4>{{ newsPublishedAt }}</h4>
       </div>
       <div>
-        <p>
-          {{ newsArticle }}
-        </p>
+        <p>{{ newsArticle }}</p>
       </div>
       <p>Lanjutkan baca ke <a :href="newsUrl">sini</a></p>
       <button @click="goBack">Kembali</button>
